@@ -1,0 +1,8 @@
+src=$(wildcard ./*.c)
+obj=$(patsubst ./%.c, ./%.o, $(src))
+nodir=$(notdir $(src))
+
+all:
+	@echo $(src)
+	@echo $(obj)
+	@echo $(nodir)

@@ -86,4 +86,136 @@
             1. 发布程序的时候，需要将动态库提供给用户;
             2. 动态库没有被打包到应用程序中，加载速度相对较慢;
         
+5. gdb调试:
+    1>. 命令说明:
+        start        -- 开始执行; 只执行一步
+        run    (r)   -- 开始执行，遇到断点时暂停;
+        list   (l)   -- 显示源代码; 例: l + 行号
+        info   (i)   -- 查看信息;   例: info breakpoints, 简写: i b
+        break  (b)   -- 设置断点;   例: 普通断点: break 20, 条件断点: b 25 if i==50, 
+        next   (n)   -- 执行单步调试;
+        step   (s)   -- 进入到函数体内部;
+        print  (p)   -- 查看变量值;
+        until  (u)   -- 跳出单次循环;
+        delete (d)   -- 删除断点;      例： delete 编号
+        continue (c) -- 执行到断点位置;
+        set          -- 设置变量的值;   例： set var i=10
+        ptype        -- 查看变量类型;   例： ptype i 返回：type = int
+        finish       -- 跳出当前函数;
+        display      -- 追踪变量的值;   例： display i, display j
+        undisplay    -- 取消追踪变量;   例： undisplay 编号
+        quit         -- 退出gdb
         
+    2>. 调试的大体流程:
+        1. 启动gdb
+            start -- 只执行一步
+            n -- next
+            s -- step
+            c -- continue  -- 直接停在断点的位置
+            
+        2. 查看代码： l (list)
+            例：
+                1 行号 (函数名)
+                l 文件名:行号
+        3. 设置断点：
+            1) 设置当前文件断点: b (break)
+                b 行号 (函数名)
+                b 文件名:行号 (函数名)
+            
+            2) 设置条件断点: 
+                b 行号 if val==19
+            
+            3) 删除断点: 
+                d (delete) 编号
+                获取编号: i b
+                        
+        4. 查看设置的断点: info breakpoints
+        5. 开始执行gdb调试:
+            执行一步操作:
+                继续执行:
+            执行多步，直接停在断点处: continue
+        6. 单步调试
+            进入函数体内部: s -- step
+            从函数体内部跳出: finish
+            不进入函数体内部: n (next)
+            退出当前循环:  u (until)
+        7. 查看变量的值:   p (print) 变量名
+        8. 查看变量的类型:  ptype 变量名
+        9. 设置变量的值:   set var 变量名=值
+        10.设置追踪变量: 
+            display 变量名
+        取消追踪变量: 
+            undisplay 编号
+            获取编号: info display
+            
+        11. 退出gdb:
+            quit
+        
+    命令例:
+        查看断点: info breakpoints
+        
+        Num  Type           Disp Enb Address            What
+        1    breakpoint     keep y   0x0000000000400715 in main at main.c:6
+             stop only if sum==26
+        2    breakpoint     keep y   0x0000000000400727 in main at main.c:7
+        
+        Num  - 断点编号
+        Type - 类型
+        Enb  - 是否可用, 可用 y, 不可用 n
+        What - 当前断点属于哪个文件
+        
+6. makefile的编写:
+    1>. makefile的命名:
+        makefile 或 Makefile
+    2>. makefile的规则:
+        规则中的三要素: 目标, 依赖, 命令
+            目标: 依赖条件
+                命令
+        
+        子目标和终极目标的关系:
+            终极目标先检查弃依赖是否存在，如不存在则寻找下面的子目标，
+            子目标根据其依赖文件生成子目标文件; 如果有多个依赖则依次查找并生成。
+        
+        模式规则：
+        %.o: %.c
+            $(CC) -c $< -o $@
+        
+        makefile中的自动变量: (只能在规则的命令中使用)
+        $<: 规则中的第一个依赖
+        $@: 规则中的目标
+        $^: 规则中的所有依赖
+        
+    3>. makefile样例:
+    
+        #自定义变量
+        obj=main.o add.o sub.o mul.o
+        target=myapp
+        #makefile中自己维护的变量
+        CC = gcc
+        CPFLAGS = -I
+        #使用函数
+        src=$(wildcard ./*.c)
+        obj=$(patsubst ./%.c, ./%.o, $(src))
+
+        $(target): $(obj)
+            $(CC) $(obj) -o $(target)
+
+        #模式规则
+        # $< 对应规则中的依赖, 即 %.c
+        # $@ 对应规则中的目标, 即 %.o
+        %.o: %.c
+            $(CC) -c $< -o $@
+            
+        #声明clean为伪目标，
+        #即使目录下有clean文件也会执行clean下的命令
+        .PHONY: clean
+        clean:
+            rm -f $(obj) $(target)
+        
+    4>. 函数:
+        1). 扩展通配符，获取指定目录下的指定类型文件
+            src=$(wildcard ./*.c)
+        2). 替换通配符
+            obj=$(patsubst ./%.c, ./%.o, $(src))
+        3). 去除路径
+            dir=$(notdir $(src))
