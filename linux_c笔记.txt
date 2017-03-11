@@ -219,3 +219,5 @@
             obj=$(patsubst ./%.c, ./%.o, $(src))
         3). 去除路径
             dir=$(notdir $(src))
+
+C库函数:
