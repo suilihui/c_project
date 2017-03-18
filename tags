@@ -1,0 +1,28 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFSIZE	MyIO/read_write.c	9;"	d	file:
+CC	Makefile/makefile	/^CC = gcc$/;"	m
+CPFLAGS	Makefile/makefile	/^CPFLAGS = -I$/;"	m
+MODE	MyIO/read_write.c	8;"	d	file:
+SIZE	MyIO/myopen.c	8;"	d	file:
+_HEAD_H	Calc/include/head.h	2;"	d
+_HEAD_H	Makefile/head.h	2;"	d
+add	Calc/src/add.c	/^int add(int a, int b)$/;"	f
+add	Makefile/add.c	/^int add(int a, int b)$/;"	f
+div	Calc/src/div.c	/^int div(int a, int b)$/;"	f
+div	Makefile/div.c	/^int div(int a, int b)$/;"	f
+main	Calc/main.c	/^int main(void)$/;"	f
+main	Makefile/main.c	/^int main(void)$/;"	f
+main	MyIO/myopen.c	/^int main(void)$/;"	f
+main	MyIO/read_write.c	/^int main()$/;"	f
+mul	Calc/src/mul.c	/^int mul(int a, int b)$/;"	f
+mul	Makefile/mul.c	/^int mul(int a, int b)$/;"	f
+obj	Makefile/makefile	/^obj=$(patsubst .\/%.c, .\/%.o, $(src))$/;"	m
+src	Makefile/makefile	/^src=$(wildcard .\/*.c)$/;"	m
+sub	Calc/src/sub.c	/^int sub(int a, int b)$/;"	f
+sub	Makefile/sub.c	/^int sub(int a, int b)$/;"	f
+target	Makefile/makefile	/^target=myapp$/;"	m
