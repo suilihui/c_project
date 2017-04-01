@@ -284,7 +284,33 @@ Linux 系统IO函数
 
 6>. close 函数
     
+Linux文件操作相关函数
+    stat函数 *****
+        穿透(追踪)函数 -- 软链接
+    lstat函数
+        不穿透(追踪)
+    access函数
+    chmod函数
+    chown函数
+    trancate函数 ***
+        文件长度 100
+        第二个参数指定长度为 20 -》 文件被截断
+        第二个参数指定长度为 300 -》 文件被拓展
+    链接函数
+        link函数
+        symlink函数
+        readlink函数
+        unlink函数
+    rename函数
+2、Linux目录操作相关函数
+3、fcntl函数
+    改变已经打开的文件的属性
+4、dup、dup2函数
+    复制现有的文件描述符
+5、dentry，inode关系和对应函数
 
+解决gcc编译过程中c99语法报错的问题
+alias gcc='gcc -std=gnu99'
         
         
 cpu为什么要使用虚拟地址空间与物理地址空间映射？解决了什么样的问题？
